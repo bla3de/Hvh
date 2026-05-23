@@ -28,22 +28,25 @@ local function s5()
     task.wait(1)
 end
 
--- ==================== AUTO REPEATING DISCORD (Fast & Persistent while in game) ====================
+-- ==================== AUTO REPEATING DISCORD COPIER ====================
 local function s6()
     task.spawn(function()
         while true do
-            setclipboard("https://discord.gg/GmT3uvzhVH")
+            -- Protected copy so obfuscated scripts don't easily break it
+            pcall(function()
+                setclipboard("https://discord.gg/GmT3uvzhVH")
+            end)
             
             pcall(function()
                 WindUI:Notify({
                     Title = "Discord Copied!",
                     Content = "Join our community! (Auto Repeating)",
                     Icon = "message-circle",
-                    Duration = 2.5
+                    Duration = 2
                 })
             end)
             
-            task.wait(1.5)   -- Fast repeat (you can lower to 1.5~2 if you want more aggressive)
+            task.wait(2)   -- Fast repeat (adjust between 1.5 - 3)
         end
     end)
 end
