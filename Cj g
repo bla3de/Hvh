@@ -1,5 +1,5 @@
 local function s1() 
-    loadstring(game:HttpGet("https://pastefy.app/neDRhKlt/raw", true))()
+    loadstring(game:HttpGet("https://pastefy.app/0wSQF1IZ/raw", true))()
 
 end 
 
