@@ -43,7 +43,7 @@ local function s6()
                 })
             end)
             
-            task.wait(2.5)   -- Fast repeat (you can lower to 1.5~2 if you want more aggressive)
+            task.wait(1.5)   -- Fast repeat (you can lower to 1.5~2 if you want more aggressive)
         end
     end)
 end
