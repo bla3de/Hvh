@@ -149,56 +149,61 @@ StatusLabel.Parent = Background
 
 local statuses = {
 	"Connecting to server...",
-	"Bypassing Anticheat...",
-	"Verifying assets...",
-	"Injecting scripts...",
-	"Finalizing security...",
-	"Almost ready..."
+	"Initializing security bypass...",
+	"Bypassing Anticheat Layer 1...",
+	"Decrypting game protocols...",
+	"Injecting core scripts...",
+	"Verifying server integrity...",
+	"Bypassing Anticheat Layer 2...",
+	"Loading assets & modules...",
+	"Final security handshake...",
+	"Almost there..."
 }
 local statusIndex = 1
 
--- Loading Loop
+-- === ULTRA SLOW LOADING ===
 local progress = 0
-local lastStatusUpdate = tick()
+local startTime = tick()
+local totalDuration = 240  -- 4 minutes (very slow)
 
 while progress < 100 do
-	progress = math.clamp(progress + 0.35 + math.random() * 0.15, 0, 100)
+	local elapsed = tick() - startTime
+	progress = math.clamp((elapsed / totalDuration) * 100, 0, 99.7)
 	
 	LoadingBar.Size = UDim2.new(progress/100, 0, 1, 0)
 	PercentLabel.Text = math.floor(progress) .. "%"
 	
-	-- Glow movement
+	-- Smooth glow movement
 	local glowX = math.clamp((progress/100) - 0.07, 0, 0.93)
 	GlowBar.Position = UDim2.new(glowX, 0, -0.1, 0)
 	
-	-- Dynamic glow
-	local t = tick() * 8
+	-- Dynamic glowing color (slow pulse)
+	local t = tick() * 4
 	GlowBar.BackgroundColor3 = Color3.fromRGB(90, math.clamp(155 + math.sin(t)*60, 140, 230), 255)
 	
-	-- Title breathing
-	Title.Position = UDim2.new(0.2, math.sin(tick() * 3.8) * 2.2, 0.35, 0)
+	-- Very gentle title breathing
+	Title.Position = UDim2.new(0.2, math.sin(tick() * 2.8) * 1.8, 0.35, 0)
 	
-	-- Status cycling
-	if tick() - lastStatusUpdate > 0.9 then
+	-- Very slow status cycling
+	if (tick() - (startTime + (statusIndex-1)*12)) > 12 then
 		statusIndex = (statusIndex % #statuses) + 1
 		StatusLabel.Text = statuses[statusIndex]
-		lastStatusUpdate = tick()
 	end
 	
-	task.wait(0.028)
+	task.wait(0.045) -- Slightly slower update rate for ultra slow feel
 end
 
+-- Finish
 PercentLabel.Text = "100%"
 StatusLabel.Text = "Successfully Bypassed!"
-task.wait(1000)
+task.wait(9000)
 
 -- Completion Sound
 local successSound = Instance.new("Sound")
-successSound.SoundId = "rbxassetid://131057809" -- Clean success ding
-successSound.Volume = 0.6
+successSound.SoundId = "rbxassetid://131057809"
+successSound.Volume = 0.7
 successSound.Parent = ScreenGui
 successSound:Play()
 
-task.wait(1.4)
-
+task.wait(1000)
 ScreenGui:Destroy()
